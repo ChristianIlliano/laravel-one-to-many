@@ -5,7 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Support\Str;
+
+use function PHPSTORM_META\type;
 
 class ProjectController extends Controller
 {
@@ -24,7 +27,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view("admin.projects.create");
+        $types = Type::all();
+        return view("admin.projects.create", compact("types"));
     }
 
     /**
