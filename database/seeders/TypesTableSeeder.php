@@ -15,10 +15,12 @@ class TypesTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        $data = config("type");
-        for ($i = 0; $i < 5; $i++) {
+
+        $types = ['front-end', 'back-end', 'full-stack'];
+
+        foreach ($types as $type) {
             $newType = new Type();
-            $newType->name = $faker->sentence(4);
+            $newType->name = $type;
             $newType->save();
         }
     }

@@ -37,9 +37,9 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $newProject = new Project();
         $newProject->title = $data["title"];
+        $newProject->type = $data["type"];
         $newProject->description = $data["description"];
         $newProject->slug = Str::slug($newProject->title);
         $newProject->save();
@@ -69,20 +69,21 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        
-        return view("admin.projects.edit", compact("project"));
+        $types = Type::all();
+        return view("admin.projects.edit", compact("project", "types"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Project $project, Type $type)
     {
         $project->title = $request->title;
+        $project->type = $request->type;
         $project->description =$request->description;
         $project->slug = Str::slug($project->title);
         $project->save();
-        return view('admin.projects.show', compact('project'));
+        return view('admin.projects.show', compact('project', "types"));
     }
 
     /**
